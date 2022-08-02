@@ -1,4 +1,4 @@
-{
+const dataTotalCreo=[{
     "results": [
     {
     "vegetarian": true,
@@ -1953,4 +1953,6 @@
     "offset": 0,
     "number": 10,
     "totalResults": 5219
-    }
+    }]
+
+module.exports ={dataTotalCreo}

@@ -1,4 +1,4 @@
-{
+const dataPrueba=[{
     "results": [
     {
     "id": 716426,
@@ -64,4 +64,6 @@
     "offset": 0,
     "number": 10,
     "totalResults": 5219
-    }
+    }]
+
+module.exports={dataPrueba}

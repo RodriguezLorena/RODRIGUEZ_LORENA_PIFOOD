@@ -1,4 +1,4 @@
-{
+const dataPorIdCreo=[{
     "vegetarian": false,
     "vegan": false,
     "glutenFree": false,
@@ -264,4 +264,6 @@
     "instructions": null,
     "analyzedInstructions": [],
     "originalId": null
-    }
+    }]
+
+module.exports={dataPorIdCreo}
