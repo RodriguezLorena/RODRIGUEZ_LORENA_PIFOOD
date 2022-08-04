@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     puntajeDeSalud: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     pasoApaso: {

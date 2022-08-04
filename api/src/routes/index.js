@@ -9,8 +9,11 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 const {routerFoods} = require("./routerFoods")
 const {routerDietas} =require("./routerDietas")
+const {postRouter}= require("./postRecetas")
 
 router.use("/foods", routerFoods);
-router.use("/dietas", routerDietas)
+router.use("/dietas", routerDietas);
+router.use("/creacion", postRouter)
+
 
 module.exports = router;

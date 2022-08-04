@@ -18960,4 +18960,4 @@ const dataTotalEsteSi={
     "totalResults": 5219
     }
 
-module.exports ={dataTotalEsteSi}
+module.exports =dataTotalEsteSi

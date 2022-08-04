@@ -17,7 +17,8 @@ const llamadaDeTodasLasDietas= async()=>{
             }
         }
         console.log("ACA ESTA TODASLASDIETAS ", todasLasDietas)
-        let dietasObj = todasLasDietas?.map((elemento) => ({nombre: elemento})) 
+        let dietasObj = todasLasDietas.map((elemento) => {
+            return {nombre: elemento}}) 
    console.log("ACA ESTA EL ERROR EN LAS DIESTASOBJ", dietasObj.length)
           return dietasObj;
     } catch (error) {
