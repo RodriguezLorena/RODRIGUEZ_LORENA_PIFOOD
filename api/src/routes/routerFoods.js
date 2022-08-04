@@ -1,10 +1,10 @@
 const {Router}=require("express")
-const{datosApi}= require("../controladores/controladorRecetas")
+const{ llamadaTotalDeRecetas}= require("../controladores/controladorRecetas")
 
 const routerFoods= Router();
 
 routerFoods.get("/", async(req,res)=>{
-    const todasLasRecetas= await datosApi();
+    const todasLasRecetas= await llamadaTotalDeRecetas();
     res.status(200).send(todasLasRecetas)
 })
 
