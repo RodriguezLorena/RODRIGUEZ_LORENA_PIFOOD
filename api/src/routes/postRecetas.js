@@ -12,14 +12,15 @@ postRouter.post("/", async(req, res)=>{
             resumenDelPlato,
             puntajeDeSalud,
             pasoApaso,
-            imagen
+            imagen,
         })
-
+       
+     
         const buscarDietasEnLaDB= await Dieta.findAll({
-            where:{nombre: dietas}
+          where:{ nombre:dietas},
         })
 
-        await crearRecetas.addDieta(buscarDietasEnLaDB);
+       await crearRecetas.addDieta(buscarDietasEnLaDB);
         console.log("ACA ESTA CREAR RECETAS ", buscarDietasEnLaDB)
         res.status(200).send(crearRecetas)
     } catch (error) {
