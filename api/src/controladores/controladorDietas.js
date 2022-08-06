@@ -11,7 +11,7 @@ const llamadaDeTodasLasDietas = async () => {
 
     let todasLasDietas = [];
     for (let i = 0; i < juntarDietas.length; i++) {
-      if (!todasLasDietas.includes(juntarDietas[i] && juntarDietas[i])) {
+      if (!todasLasDietas.includes(juntarDietas[i])) {
         todasLasDietas.push(juntarDietas[i]);
       }
     }

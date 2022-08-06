@@ -1,32 +1,38 @@
-const { Router} = require("express");
-const postRouter= Router();
+const { Router } = require("express");
+const postRouter = Router();
 
-const { Dieta, Receta} = require("../db");
+const { Dieta, Receta } = require("../db");
 
-postRouter.post("/", async(req, res)=>{
-    try {
-        const {nombre, dietas, resumenDelPlato, puntajeDeSalud, pasoApaso, imagen}= req.body;
+postRouter.post("/", async (req, res) => {
+  try {
+    const {
+      nombre,
+      dietas,
+      resumenDelPlato,
+      puntajeDeSalud,
+      pasoApaso,
+      imagen,
+    } = req.body;
 
-        const crearRecetas= await Receta.create({
-            nombre,
-            resumenDelPlato,
-            puntajeDeSalud,
-            pasoApaso,
-            imagen,
-        })
-       
-     
-        const buscarDietasEnLaDB= await Dieta.findAll({
-          where:{ nombre:dietas},
-        })
+    const crearRecetas = await Receta.create({
+      nombre,
+      resumenDelPlato,
+      puntajeDeSalud,
+      pasoApaso,
+      imagen,
+    });
 
-       await crearRecetas.addDieta(buscarDietasEnLaDB);
-        console.log("ACA ESTA CREAR RECETAS ", buscarDietasEnLaDB)
-        res.status(200).send(crearRecetas)
-    } catch (error) {
-        console.log("ACA ESTA EL ERROR EN LA RUTA POST ", error)
-    }
-})
+    const buscarDietasEnLaDB = await Dieta.findAll({
+      where: { nombre: dietas },
+    });
 
-module.exports ={postRouter}
-           
+    await crearRecetas.addDieta(buscarDietasEnLaDB);
+    console.log("ACA ESTA CREAR RECETAS ", buscarDietasEnLaDB);
+    res.status(200).send(crearRecetas);
+  } catch (error) {
+    console.log("ACA ESTA EL ERROR EN LA RUTA POST ", error);
+    res.status(406).send("Receta no valida");
+  }
+});
+
+module.exports = { postRouter };
