@@ -14,7 +14,6 @@ routerDietas.get("/", async (req, res) => {
       const cargaditas = cargarDietas.map((elemento) => {
         return { nombre: elemento.nombre };
       });
-      console.log("ACA ESTA CARGARDIETAS ", cargaditas);
       await Dieta.bulkCreate(cargaditas);
 
       const llamadaDeLasDieta = await Dieta.findAll();

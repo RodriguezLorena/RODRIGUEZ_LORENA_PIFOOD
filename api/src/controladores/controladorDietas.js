@@ -5,8 +5,10 @@ const llamadaDeTodasLasDietas = async () => {
   try {
     let todosLasDietas = await llamadaTotalDeRecetas();
 
-    let dietas = todosLasDietas.map((elemento) => elemento.dietas);
-    console.log("ACA ESTA LA LLAMADATOTALDERECETAS ", dietas.length);
+    let dietas = todosLasDietas.map((elemento) => elemento.dieta.map(ele=> ele.nombre));
+
+    console.log("ACA ESTA DIETAS ", dietas)
+   
     let juntarDietas = dietas.join(",").split(",");
 
     let todasLasDietas = [];
@@ -15,14 +17,14 @@ const llamadaDeTodasLasDietas = async () => {
         todasLasDietas.push(juntarDietas[i]);
       }
     }
-    console.log("ACA ESTA TODASLASDIETAS ", todasLasDietas);
+   
     let dietasObj = todasLasDietas.map((elemento) => {
       return { nombre: elemento };
     });
-    console.log("ACA ESTA EL ERROR EN LAS DIESTASOBJ", dietasObj);
+    
     return dietasObj;
   } catch (error) {
-    console.log("ACA ESTA EL ERROR EN LA LLAMADA A DIETAS ", error);
+    
   }
 };
 

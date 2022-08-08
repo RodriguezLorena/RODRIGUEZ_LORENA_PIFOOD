@@ -3,7 +3,7 @@ const postRouter = Router();
 
 const { Dieta, Receta } = require("../db");
 
-postRouter.post("/", async (req, res) => {
+postRouter.post("/", async (req, res) => {    
   try {
     const {
       nombre,
@@ -12,7 +12,7 @@ postRouter.post("/", async (req, res) => {
       puntajeDeSalud,
       pasoApaso,
       imagen,
-    } = req.body;
+    } = req.body; //req.body es la data que le paso en el body del post
 
     const crearRecetas = await Receta.create({
       nombre,
@@ -20,15 +20,30 @@ postRouter.post("/", async (req, res) => {
       puntajeDeSalud,
       pasoApaso,
       imagen,
-    });
+    });  //esto es el resultado de mis datos en la base de datos
 
     const buscarDietasEnLaDB = await Dieta.findAll({
-      where: { nombre: dietas },
-    });
+      where: { nombre: dietas}
+    });    //aca busco en mi modelo dietas
+    // console.log("aca esta buscar diestas en la db ", buscarDietasEnLaDB)
 
-    await crearRecetas.addDieta(buscarDietasEnLaDB);
-    console.log("ACA ESTA CREAR RECETAS ", buscarDietasEnLaDB);
-    res.status(200).send(crearRecetas);
+   
+    
+    await crearRecetas.addDieta(buscarDietasEnLaDB);   //aca adhiere lo que encuentra en dieta a el modelo de receta
+    const craecionDefinitiva = await Receta.findByPk(crearRecetas.id, {
+      include: [{
+        model: Dieta,
+        // attributes: ["nombre"],                    
+        through: { attributes: [] }
+      }]
+    })
+  
+   
+    
+    res.status(200).send(craecionDefinitiva)
+    
+    
+    
   } catch (error) {
     console.log("ACA ESTA EL ERROR EN LA RUTA POST ", error);
     res.status(406).send("Receta no valida");
@@ -36,3 +51,6 @@ postRouter.post("/", async (req, res) => {
 });
 
 module.exports = { postRouter };
+
+
+
