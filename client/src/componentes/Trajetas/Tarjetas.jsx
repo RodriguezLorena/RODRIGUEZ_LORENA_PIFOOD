@@ -1,11 +1,11 @@
 import React from 'react'
 import Tarjeta from '../Tarjeta/Tarjeta'
 
-const Tarjetas = ({recetas}) => {
+const Tarjetas = ({algo}) => {
   return (
     <div>
         {
-            recetas && recetas.map((receta)=>(
+           algo && algo.map((receta)=>(
                 <div key={receta.id}>
                     <Tarjeta nombre={receta.nombre} imagen={receta.imagen} dieta={receta.dieta} id={receta.id}/>
                 </div>
