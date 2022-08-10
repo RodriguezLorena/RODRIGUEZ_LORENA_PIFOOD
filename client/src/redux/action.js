@@ -61,3 +61,14 @@ export function accionOrdenAlfabetico(payload){
         payload
     }
 }
+
+
+export const formularioDeCreacion= async(payload)=>{
+  try {
+    let crearReceta= await axios.post("http://localhost:3001/creacion", payload)
+    return crearReceta
+    
+  } catch (error) {
+    console.log("ERROR EN LA RUTA DE CREACION ", error)
+  }
+}
