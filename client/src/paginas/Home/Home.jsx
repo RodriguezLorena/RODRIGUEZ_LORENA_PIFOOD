@@ -1,10 +1,11 @@
 import React from "react";
-import Tarjetas from "../../componentes/Trajetas/Tarjetas";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { traerLasRecetas } from "../../redux/action";
 import Paginado from "../../componentes/Paginado/Paginado";
 import { useState } from "react";
+import Tarjetas from "../../componentes/Trajetas/Tarjetas";
+import Encabezado from "../../componentes/Encabezado/Encabezado";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const Home = () => {
 
   return (
     <div>
+      <Encabezado setPaginaEnEsteMomento={setPaginaEnEsteMomento}/>
       <Paginado
         setPaginaEnEsteMomento={setPaginaEnEsteMomento}
         cantidadPorPagina={cantidadPorPagina}
