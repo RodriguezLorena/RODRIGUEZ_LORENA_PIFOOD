@@ -29,6 +29,25 @@ export function traerLasDietas(){
     }
 }
 
+export function detalleDeReceta(id){
+  return async function(dispatch){
+    try {
+      let detalle= await axios(`http://localhost:3001/foods/${id}`)
+      return dispatch({
+        type: "DETALLE_POR_ID",
+        payload: detalle.data
+      })
+    } catch (error) {
+      console.log("ERROR EN LA RUTA DE DETALLE ", error)
+    }
+  }
+}
+
+export function desmontarReceta(){
+  return({
+    type: "DESMONTAR_RECETA"
+  })
+}
 export const accionDietas=(payload)=>{
     return{
         type:"FILTRO_DIETAS",

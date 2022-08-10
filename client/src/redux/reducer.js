@@ -2,6 +2,7 @@ const estadoInicial = {
   recetas: [],
   dietas: [],
   recetaModificable: [],
+  unReceta: {}
 };
 
 function reducer(state = estadoInicial, { type, payload }) {
@@ -17,6 +18,18 @@ function reducer(state = estadoInicial, { type, payload }) {
       return {
         ...state,
         dietas: payload,
+      };
+    
+      case "DETALLE_POR_ID":
+      return{
+        ...state,
+        unaReceta:payload
+      };
+
+    case "DESMONTAR_RECETA":
+      return{
+        ...state,
+        unaReceta:{}
       };
 
     case "FILTRO_DIETAS":
