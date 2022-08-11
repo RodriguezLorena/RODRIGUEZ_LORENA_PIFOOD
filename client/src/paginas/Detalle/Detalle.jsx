@@ -8,7 +8,8 @@ const Detalle = () => {
   const {id} = useParams();
   console.log("aca esta id ", id)
 
-  const unaReceta= useSelector((state)=> state.unaReceta);
+  const unaReceta = useSelector((state)=> state.unaReceta);
+  console.log("aca esta unaReceta ", unaReceta)
   const dispatch= useDispatch();
 
   useEffect(()=>{
@@ -16,12 +17,13 @@ const Detalle = () => {
     return ()=>{
       dispatch(desmontarReceta())
     }
-  }, [dispatch, id])
-  return (
+  },[dispatch, id])
+ 
+   return (
     <div>
-      { <h2>Codigo:{unaReceta.id}</h2>}
+      <h2>Codigo:{unaReceta.id}</h2>
       <h2>Nombre:{unaReceta.nombre}</h2>
-      { <p>Dieta:{unaReceta.dieta?.map((ele, index)=><p key={index}>{ele.nombre}</p>)}</p>}
+      <span>Dieta:{unaReceta.dieta?.map((ele, index)=><p key={index}>{ele.nombre}</p>)}</span>
       <span>Resumen del plato:</span>
       <p>{unaReceta.resumenDelPlato}</p>
       <span>Paso a paso:</span>

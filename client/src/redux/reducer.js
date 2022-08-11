@@ -2,12 +2,13 @@ const estadoInicial = {
   recetas: [],
   dietas: [],
   recetaModificable: [],
-  unReceta: {}
+  unaReceta: {},
 };
 
 function reducer(state = estadoInicial, { type, payload }) {
   switch (type) {
     case "PEDIDO_RECETAS":
+      console.log("aca esta pedido dietas ", payload);
       return {
         ...state,
         recetas: payload,
@@ -15,57 +16,57 @@ function reducer(state = estadoInicial, { type, payload }) {
       };
 
     case "PEDIDO_DIETAS":
+      console.log("aca esta pedido dietas ", payload);
       return {
         ...state,
         dietas: payload,
       };
-    
-      case "DETALLE_POR_ID":
-      return{
+
+    case "DETALLE_POR_ID":
+      console.log("aca esta payload ", payload)
+      return {
         ...state,
-        unaReceta:payload
+        unaReceta: payload,
       };
 
     case "DESMONTAR_RECETA":
-      return{
+      return {
         ...state,
-        unaReceta:{}
+        unaReceta:{},
       };
 
     case "FILTRO_DIETAS":
-      const listaRecetas = [...state.recetaModificable];
+      console.log("aca esta filtro dietas ")
+      const listaRecetas = [...state.recetas];
       let listaDieta;
 
       if (payload === "todas") {
         listaDieta = listaRecetas;
-        return {
-          ...state,
-          recetas: listaDieta,
-        };
       } else {
-        listaDieta = listaRecetas.filter((elemento) =>
-          elemento.dieta?.map((elemento) => elemento.nombre.includes(payload))
+        console.log("aca esta el else")
+        
+        const listaDietax  = listaRecetas.filter(
+          (elemento) => elemento.dieta?.filter(
+            (elemento) => elemento.nombre === payload).length
         );
-
-        if (!listaDieta.length == 0) {
-          let resultadoAnterior = listaDieta;
-          return {
-            ...state,
-            recetas: resultadoAnterior,
-          };
-        } else {
-          let resultadoAnterior = listaRecetas;
-          alert("NO EXISTE LA DIETA QUE ESTA BUSCANDO");
-          return {
-            ...state,
-            recetas: resultadoAnterior,
-          };
-        }
+        console.log("esta es lista dietax", listaDietax)
+       listaDieta = listaDietax.length ? listaDietax : listaRecetas;
+        
+       if(!listaDietax.length){
+        alert("no existe dieta")
+       }
+       }
+      
+      return{
+        ...state,
+        recetaModificable: listaDieta
       }
+
     case "ORDEN_ALFABETICO":
       const listaDeRecetas = [...state.recetaModificable];
-      if (payload == "Az") {
-        listaDeRecetas.sort((elementoUno, elementoDos) => {
+      let ordenados;
+      if (payload === "Az") {
+        ordenados = listaDeRecetas.sort((elementoUno, elementoDos) => {
           if (
             elementoUno.nombre.toLowerCase() < elementoDos.nombre.toLowerCase()
           ) {
@@ -76,7 +77,7 @@ function reducer(state = estadoInicial, { type, payload }) {
         });
       }
       if (payload === "Za") {
-        listaDeRecetas.sort((elementoUno, elementoDos) => {
+        ordenados = listaDeRecetas.sort((elementoUno, elementoDos) => {
           if (
             elementoUno.nombre.toLowerCase() < elementoDos.nombre.toLowerCase()
           ) {
@@ -86,6 +87,10 @@ function reducer(state = estadoInicial, { type, payload }) {
           }
         });
       }
+      return {
+        ...state,
+        recetaModificable: ordenados,
+      };
 
     default:
       return state;

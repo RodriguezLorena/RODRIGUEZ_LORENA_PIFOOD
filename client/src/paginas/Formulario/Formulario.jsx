@@ -156,7 +156,6 @@ const Formulario = () => {
   return (
     <div>
     <form onSubmit={manipuladorDeCreacion}>
-      Formulario
       <label>
         NOMBRE:
         <input

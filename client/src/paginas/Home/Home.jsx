@@ -9,7 +9,7 @@ import Encabezado from "../../componentes/Encabezado/Encabezado";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const receta = useSelector((state) => state.recetas);
+  const receta = useSelector((state) => state.recetaModificable);
 
   useEffect(() => {
     dispatch(traerLasRecetas());

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { traerLasRecetas } from "../../redux/action";
 
 const Paginado = ({setPaginaEnEsteMomento, cantidadPorPagina, paginaEnEsteMomento}) => {
-  const recetas = useSelector((state) => state.recetas);
+  const recetas = useSelector((state) => state.recetaModificable);
  
   const dispatch = useDispatch();
   useEffect(() => {
