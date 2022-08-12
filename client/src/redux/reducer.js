@@ -62,6 +62,26 @@ function reducer(state = estadoInicial, { type, payload }) {
         recetaModificable: listaDieta
       }
 
+    case "FILTRO_ORIGEN":
+      const todasLasRecetas = [...state.recetas]
+      let filtrados;
+      if(payload === "todas"){
+        filtrados = todasLasRecetas
+      }else{
+        const auxiliar = payload === "guardadosEnLaDb" 
+        ? todasLasRecetas.filter((receta)=> receta.id.toString().length > 10)
+        : todasLasRecetas.filter((receta)=> receta.id.toString().length < 10)
+        filtrados = auxiliar.length ? auxiliar : todasLasRecetas;
+        
+        if(!auxiliar.length){
+         alert("NO EXISTE NINGUNA RECETA EN NUESTRA BASE DE DATOS")
+        }
+      }
+      return{
+        ...state,
+        recetaModificable: filtrados
+      }
+
     case "ORDEN_ALFABETICO":
       const listaDeRecetas = [...state.recetaModificable];
       let ordenados;
@@ -92,6 +112,40 @@ function reducer(state = estadoInicial, { type, payload }) {
         recetaModificable: ordenados,
       };
 
+    case "ORDEN_PUNTAJE":
+      let puntaje= [...state.recetaModificable];
+      if(payload === "puntajeMinimo"){
+        puntaje.sort((puntaje1, puntaje2)=>{
+          if(Number(puntaje1.puntajeDeSalud) < Number(puntaje2.puntajeDeSalud)){
+            return -1;
+          }else{
+            return 1;
+          }
+        })
+      }
+      if(payload === "puntajeMaximo"){
+        puntaje.sort((puntaje1, puntaje2)=>{
+          if(Number(puntaje1.puntajeDeSalud) < Number(puntaje2)){
+            return 1
+          }else{
+            return -1
+          }
+        })
+      }
+      return{
+        ...state,
+        recetaModificable: puntaje
+      }
+
+    case "BUSQUEDA_POR_NOMBRE":
+      if(!payload.data){
+        return alert("NO SE ENCUENTRA UNA RECETA CON ESE NOMBRE")
+      }else{
+        return{
+          ...state,
+          recetas: payload.data
+        }
+      }
     default:
       return state;
   }

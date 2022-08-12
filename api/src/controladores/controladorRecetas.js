@@ -1957,22 +1957,6 @@ const datosOficiales=[
 		"pasoApaso": "In a bowl mix grated potatoes, spinach, onion, carrot \nAdd 1/2 tsp salt and mix well \nSqueeze the veggie mixture to remove all the moisture out \nAdd red chilli powder and corn starch \nAdjust salt by tasting the mixture \nForm the mixture into patties \nHeat oil in a pan for shallow frying \nPut the patties gently in the hot pan \nLet them brown on medium high heat for few minutes from both the sides then lower the \nheat to medium.Cook till done.",
 		"imagen": "https://spoonacular.com/recipeImages/647016-312x231.jpg"
 	},
-	{
-		"id": "c02237ab-518a-445a-bce8-520a7bc0e3ec",
-		"nombre": "prueba 17",
-		"resumenDelPlato": "resumen del plato 1",
-		"puntajeDeSalud": 20,
-		"pasoApaso": "paso a paso 1",
-		"imagen": "alguna imagen1",
-		"dieta": [
-			{
-				"nombre": "dairy free"
-			},
-			{
-				"nombre": "whole 30"
-			}
-		]
-	}
 ]
 const datosApi = async () => {
   try {
@@ -2011,12 +1995,6 @@ const datosApi = async () => {
 
 const datosDeLaDB = async () => {
   try {
-    // const resultado= await Receta.findAll({
-    //      includes:{
-    //         model: Dieta,
-    //         attributes: ["nombre"],
-    //     }
-    // })
     const foo = await Receta.findAll({
       include: [
         {

@@ -1,7 +1,8 @@
 import React from 'react'
+import { useState } from 'react'
 import { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {traerLasDietas, accionDietas, accionOrdenAlfabetico} from "../../redux/action"
+import {traerLasDietas, accionDietas,accionOrigen, accionOrdenAlfabetico, accionOrdenPorPuntaje, accionBusquedaPorNombre} from "../../redux/action"
 
 const Encabezado = ({setPaginaEnEsteMomento}) => {
     const dispatch= useDispatch();
@@ -21,10 +22,37 @@ const seleccionarDietas= (e)=>{
     setPaginaEnEsteMomento(1)
 }
 
+//FILTRO POR ORIGEN:
+const cambiarOrigen=(e)=>{
+    let valor = e.target.value;
+    dispatch(accionOrigen(valor))
+    setPaginaEnEsteMomento(1)
+}
+
 //ORDEN ALFABETICO:
 const cambiarOrdenAlfa=(e)=>{
     let valor = e.target.value;
     dispatch(accionOrdenAlfabetico(valor))
+}
+
+//ORDEN POR PUNTAJE DE SALUD:
+const cambiarPuntajeDeSalud =(e)=>{
+    let valor = e.target.value;
+    dispatch(accionOrdenPorPuntaje(valor))
+}
+
+//BUSCADOR POR NOMBRE:
+const [busquedaNombre, setBusquedaNombre]= useState("")
+
+const buscadorPorNombre= (e)=>{
+    let busqueda = e.target.value.toLowerCase()
+    setBusquedaNombre(busqueda)
+}
+const onSubmitPorNombre = (e)=>{
+    e.preventDefault();
+    dispatch(accionBusquedaPorNombre(busquedaNombre))
+    setBusquedaNombre("")
+    setPaginaEnEsteMomento(1)
 }
 
     return (
@@ -40,12 +68,28 @@ const cambiarOrdenAlfa=(e)=>{
             }
         </select>
 
+        <select onChange={(e)=>cambiarOrigen(e)} name="OrdenPuntajeDeSalud">
+            <option value="todas">TODAS LAS RECETAS</option>
+            <option value="guardadosEnLaDb">Filtrar por Origen Base de Datos</option>
+            <option value="ExistenteEnApi">Filtrar por Origen Api</option>
+        </select>
+
         <select onChange={(e)=>cambiarOrdenAlfa(e)} name="OrdenAlfabetico">
             <option value="Az">Orden de la "A" a la "Z"</option>
             <option value="Za">Orden de la "Z" a la "A"</option>
         </select>
+
+        <select onChange={(e)=>cambiarPuntajeDeSalud(e)} name="OrdenPuntajeDeSalud">
+            <option value="puntajeMinimo">Orden por Nivel de salud bajo</option>
+            <option value="puntajeMaximo">Orden pir Nivel de salud alto</option>
+        </select>
+
+        <form onSubmit={(e)=>onSubmitPorNombre(e)}>
+            <input  type="text" value={busquedaNombre} onChange={(e)=>buscadorPorNombre(e)} placeholder="Busca por nombre de receta"/>
+            <input  type="submit" value="Buscar"/>
+        </form>
     </div>
-  )
+    )
 }
 
 export default Encabezado

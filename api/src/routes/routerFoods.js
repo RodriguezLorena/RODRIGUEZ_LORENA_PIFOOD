@@ -32,8 +32,9 @@ routerFoods.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const unaReceta = await datosIdDeLaApi(id);
+
+    
     if(unaReceta){
-     
       res.status(200).send(unaReceta);
     }else{
       res.status(404).send("No existe la Receta Buscada")
@@ -43,6 +44,9 @@ routerFoods.get("/:id", async (req, res) => {
     console.log("ACA ESTA EL ERROR EN LA RUTA POR ID ", error);
   }
 });
+
+
+//ESTO NO ES REQUERIDO PERO LO PRUEBO POR LAS DUDAS
 
 routerFoods.delete("/:id", async(req, res)=>{
   try {
@@ -59,38 +63,4 @@ routerFoods.delete("/:id", async(req, res)=>{
   }
 })
 
-
-
-
-routerFoods.put("/:id", async (req, res)=> {
-  try{
-  const { dieta} = req.body;
-  const { id }= req.params;
-  const actualizar = await Receta.findOne({
-      where: {
-          id,
-      },
-      include:{
-          model: Dieta,
-          attribute: ['nombre']
-      }
-  })
-  const datos = req.body;
-  for(ele in datos){
-      if(ele !=='dieta')actualizar[ele] = datos[ele]
-       
-  }
-    const tiposMod = await Dieta.findAll({  
-    where: { nombre: dieta}
-
-  })
-   actualizar.addDieta(tiposMod); //maaaaaaaaaaaaaaaaaaaaaaaaalllllllllllllllll
-   await actualizar.save()             // ver esto, no se de donde saque
-   res.status(200).send(actualizar)
-
-   console.log("FUNCIONO MIERDA", actualizar)
-  }catch (error){
-      console.log(error)
-  }
-})
 module.exports = { routerFoods };

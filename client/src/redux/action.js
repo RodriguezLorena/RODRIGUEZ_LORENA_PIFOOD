@@ -55,6 +55,12 @@ export const accionDietas=(payload)=>{
     }
 }
 
+export const accionOrigen = (payload)=>{
+  return{
+    type: "FILTRO_ORIGEN",
+    payload
+  }
+}
 export function accionOrdenAlfabetico(payload){
     return{
         type:"ORDEN_ALFABETICO",
@@ -62,7 +68,26 @@ export function accionOrdenAlfabetico(payload){
     }
 }
 
+export function accionOrdenPorPuntaje(payload){
+  return{
+    type: "ORDEN_PUNTAJE",
+    payload
+  }
+}
 
+export const accionBusquedaPorNombre = (name)=>{
+  return async function(dispatch){
+    try {
+      let nombre = await axios(`http://localhost:3001/foods?nombre=${name}`)
+      return dispatch({
+        type: "BUSQUEDA_POR_NOMBRE",
+        payload: nombre.data
+      })
+    } catch (error) {
+      console.log("ERROR EN LA LLAMADA POR QUERY NOMBRE ", error)
+    }
+  }
+}
 export const formularioDeCreacion= async(payload)=>{
   try {
     let crearReceta= await axios.post("http://localhost:3001/creacion", payload)
@@ -72,3 +97,4 @@ export const formularioDeCreacion= async(payload)=>{
     console.log("ERROR EN LA RUTA DE CREACION ", error)
   }
 }
+
