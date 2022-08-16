@@ -1,0 +1,39 @@
+.contenedor{
+    background-image: url("../../imagenes/error404.gif"); 
+    background-position: 80%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    
+       
+}
+.titulo{
+    color:black;
+    text-align: center;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+}
+.parrafo1{
+    color: black;
+    width: 50%;
+    text-align: center;
+    padding-top: 10%;
+    letter-spacing: 0.3rem;
+    font-size: 2rem;
+}
+
+.span{
+    color: black;
+    letter-spacing: 0.2rem;
+    padding-top: 5%;
+    width: 50%;
+    text-align: center;   
+    
+}
+
+.link{
+    color: black;
+    text-transform: uppercase;
+}
+

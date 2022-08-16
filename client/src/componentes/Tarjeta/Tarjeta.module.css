@@ -1,0 +1,31 @@
+.tarjetaContenedor{  
+    box-shadow: rgb(5, 11, 16) 0px 10px 20px -10px;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 30px; 
+    background-color: rgba(73, 71, 71, 0.182);
+    backdrop-filter: blur(5px)
+}
+
+.img{
+    width: 100%;
+    border-radius: 10px;
+}
+.nombre{
+    color:black;
+    text-transform: uppercase;
+}
+.dieta{
+    color: black;
+    flex-direction: row;
+    display: inline;
+    margin: 5px; 
+    text-transform: uppercase;  
+}
+.span{
+    color: black;
+}
+
+.link{
+    text-decoration: none;
+}

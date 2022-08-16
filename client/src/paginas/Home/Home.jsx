@@ -7,6 +7,7 @@ import { useState } from "react";
 import Tarjetas from "../../componentes/Trajetas/Tarjetas";
 import Encabezado from "../../componentes/Encabezado/Encabezado";
 import BarraDeNavegacion from "../../componentes/BarraDeNavegacion.jsx/BarraDeNavegacion";
+import Loading from "../../componentes/Loading/Loading";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Home = () => {
 
   return (
     <div>
+      {receta.length > 0 ? (
+        <div>
       <BarraDeNavegacion/>
       <Encabezado setPaginaEnEsteMomento={setPaginaEnEsteMomento}/>
       <Paginado
@@ -32,7 +35,14 @@ const Home = () => {
         cantidadPorPagina={cantidadPorPagina}
         paginaEnEsteMomento={paginaEnEsteMomento}
       />
+      <div>
       <Tarjetas algo={listaDeRecetas} />
+      </div>
+      </div>
+      ) : (
+        <Loading />
+      )
+      }
     </div>
   );
 };

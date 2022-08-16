@@ -1,9 +1,10 @@
 import React from 'react'
 import Tarjeta from '../Tarjeta/Tarjeta'
+import style from "./Tarjetas.module.css"
 
 const Tarjetas = ({algo}) => {
   return (
-    <div>
+    <div className={style.contenedor}>
         {
            algo && algo.map((receta)=>(
                 <div key={receta.id}>
