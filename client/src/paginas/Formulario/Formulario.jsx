@@ -7,6 +7,7 @@ import {
   formularioDeCreacion,
 } from "../../redux/action";
 import { Link, useNavigate } from "react-router-dom";
+import BarraDeNavegacion from "../../componentes/BarraDeNavegacion.jsx/BarraDeNavegacion";
 
 const Formulario = () => {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const Formulario = () => {
 
   return (
     <div>
+      <BarraDeNavegacion/>
       <form onSubmit={manipuladorDeCreacion}>
         <div>
           <label>

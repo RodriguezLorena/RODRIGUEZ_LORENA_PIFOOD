@@ -6,6 +6,7 @@ import Paginado from "../../componentes/Paginado/Paginado";
 import { useState } from "react";
 import Tarjetas from "../../componentes/Trajetas/Tarjetas";
 import Encabezado from "../../componentes/Encabezado/Encabezado";
+import BarraDeNavegacion from "../../componentes/BarraDeNavegacion.jsx/BarraDeNavegacion";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Home = () => {
 
   return (
     <div>
+      <BarraDeNavegacion/>
       <Encabezado setPaginaEnEsteMomento={setPaginaEnEsteMomento}/>
       <Paginado
         setPaginaEnEsteMomento={setPaginaEnEsteMomento}
