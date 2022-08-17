@@ -10,6 +10,7 @@ const llamadaDeTodasLasDietas = async () => {
     console.log("ACA ESTA DIETAS ", dietas)
    
     let juntarDietas = dietas.join(",").split(",");
+   
 
     let todasLasDietas = [];
     for (let i = 0; i < juntarDietas.length; i++) {
@@ -17,10 +18,15 @@ const llamadaDeTodasLasDietas = async () => {
         todasLasDietas.push(juntarDietas[i]);
       }
     }
+
    
     let dietasObj = todasLasDietas.map((elemento) => {
-      return { nombre: elemento };
+       return { nombre: elemento };
     });
+    
+    let nuevo= dietasObj.filter((elemento)=> elemento.nombre.length > 0)
+    return nuevo
+
     
     return dietasObj;
   } catch (error) {

@@ -1987,7 +1987,7 @@ const datosApi = async () => {
     // });
     // console.log("ACA ESTAN LOS DATOS OBTENIDOS ", datosObtenidos.length)
     // return datosObtenidos;
-    return datosOficiales;
+     return datosOficiales;
   } catch (error) {
     console.log("ACA HAY UN ERROR EN LA LLAMADA A LA API ", error);
   }

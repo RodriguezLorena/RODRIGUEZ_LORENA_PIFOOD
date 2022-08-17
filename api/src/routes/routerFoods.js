@@ -12,9 +12,10 @@ routerFoods.get("/", async (req, res) => {
   try {
     const todasLasRecetas = await llamadaTotalDeRecetas();
     const { nombre } = req.query;
+    
     if (nombre) {
       let nombreReceta = todasLasRecetas.filter(
-        (elemento) => elemento.nombre == nombre
+        (elemento) => elemento.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
       nombreReceta.length
         ? res.status(200).send(nombreReceta)
