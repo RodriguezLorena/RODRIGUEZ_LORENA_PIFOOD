@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { traerLasRecetas } from "../../redux/action";
+import style from "./Paginado.module.css"
 
 const Paginado = ({setPaginaEnEsteMomento, cantidadPorPagina, paginaEnEsteMomento}) => {
   const recetas = useSelector((state) => state.recetaModificable);
@@ -33,17 +34,25 @@ const Paginado = ({setPaginaEnEsteMomento, cantidadPorPagina, paginaEnEsteMoment
   }
 
   return (
-    <div>
-      <button onClick={volverAlaAnterior}>Pagina anterior</button>
+    <div className={style.contenedorPaginado}>
+      <button className={style.boton} onClick={volverAlaAnterior}>Pagina anterior</button>
       {numeroDePaginas &&
         numeroDePaginas.map((numero, index) => {
-          return (
-            <button key={index} onClick={() => paginas(numero)}>
+          return numero !== paginaEnEsteMomento ? (
+            <button className={style.pag} key={index} onClick={() => paginas(numero)}>
               {numero}
             </button>
+          ): (
+            <button
+                    className={style.pagCurrent}
+                    key={index}
+                    onClick={() => paginas(numero)}
+                  >
+                    {numero}
+                  </button>
           );
         })}
-      <button onClick={irAlaSiguiente}>Pagina siguiente</button>
+      <button className={style.boton} onClick={irAlaSiguiente}>Pagina siguiente</button>
     </div>
   );
 };

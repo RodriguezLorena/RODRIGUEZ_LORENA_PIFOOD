@@ -8,17 +8,18 @@ import {
 } from "../../redux/action";
 import { Link, useNavigate } from "react-router-dom";
 import BarraDeNavegacion from "../../componentes/BarraDeNavegacion.jsx/BarraDeNavegacion";
+import style from "./Formulario.module.css"
 
 const Formulario = () => {
   const dispatch = useDispatch();
-  const dieta = useSelector((state) => state.dietas);
+  const dietas = useSelector((state) => state.dietas);
   const [creacion, setCreacion] = useState("inicial");
 
   const recetas = useSelector((state) => state.recetas);
 
   useEffect(() => {
-    dispatch(traerLasDietas());
-    dispatch(traerLasRecetas());
+  dispatch(traerLasDietas());
+  dispatch(traerLasRecetas());
   }, [dispatch]);
 
   const navegacionAutomatica = useNavigate();
@@ -26,7 +27,7 @@ const Formulario = () => {
     if (creacion === "creada") {
       alert("SE CREO LA NUEVA RECETA");
       setTimeout(() => {
-        navegacionAutomatica("/home");
+      navegacionAutomatica("/home");
       });
     }
     if (creacion === "noCreada") {
@@ -36,7 +37,7 @@ const Formulario = () => {
 
   const [nuevaReceta, setNuevaReceta] = useState({
     nombre: "",
-    dieta:[],
+    dietas:[],
     resumenDelPlato: "",
     puntajeDeSalud: 0,
     pasoApaso: "",
@@ -58,52 +59,43 @@ const Formulario = () => {
   };
 
   const ManipuladorDietas = (e) => {
-    const selec = nuevaReceta.dieta.filter(
+    const selec = nuevaReceta.dietas.filter(
       (elemento) => elemento !== e.target.innerHTML
     )
     console.log("ACA ESTA SETNUEVARECETA ", selec)
     if (selec.includes(e.target.value)) {
       alert("YA HA ELEGIDO ESTA DIETA")
-      setNuevaReceta({
-        ...nuevaReceta,
-        dieta: [...nuevaReceta.dieta]
-      })
-      
-      setValidador(
-        validacion({
-          ...nuevaReceta,
-          dieta: [...nuevaReceta.dieta]
-        })
-      )
       
     } else {
         setNuevaReceta({
         ...nuevaReceta,
-        dieta: [...nuevaReceta.dieta, e.target.value]
+        dietas: [...nuevaReceta.dietas, e.target.value]
       })
       setValidador(
         validacion({
           ...nuevaReceta,
-          dieta: [...nuevaReceta.dieta, e.target.value]
+          dietas: [...nuevaReceta.dietas, e.target.value]
         })
       )
     }
+    console.log("aca esta Nueva receta ", nuevaReceta.dietas)
   };
+  
 
   const eliminarDieta = (e) => {
-    const seleccion = nuevaReceta.dieta.filter(
+    const seleccion = nuevaReceta.dietas.filter(
       (elemento) => elemento !== e.target.innerHTML
     );
     
     setNuevaReceta({
       ...nuevaReceta,
-      dieta: seleccion
+      dietas: seleccion
     });
     
     setValidador(
       validacion({
         ...nuevaReceta,
-        dieta: [...seleccion]
+        dietas: [...seleccion]
       })
     );
   };
@@ -180,11 +172,18 @@ const Formulario = () => {
     if (Number(nuevaReceta.puntajeDeSalud) > 100)
       validar.puntajeDeSalud = "NO PUEDE SER MAYOR A 100";
       
-    if (!nuevaReceta.imagen.includes("https://"))
-      validar.imagen = "Debe comenzar con https://";
+      if (!nuevaReceta.imagen) {
+        validar.imagen = "IMAGEN ES REQUERIDA";
+      } else if (
+        !/(?:(?:https?:\/\/))[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b(?:[-a-zA-Z0-9@:%_\+.~#?&\/=]*(\.jpg|\.png|\.jpeg|\.webp))/.test(
+          nuevaReceta.imagen
+        )
+      ) {
+        validar.imagen = "INGRESE UNA URL VALIDA";
+      }
 
-    if (nuevaReceta.dieta.length === 0)
-      validar.dieta = "DEBE CONTENER AL MENOS UNA DIETA";
+    if (nuevaReceta.dietas.length === 0)
+      validar.dietas = "DEBE CONTENER AL MENOS UNA DIETA";
       
     return validar;
   };
@@ -192,8 +191,9 @@ const Formulario = () => {
   return (
     <div>
       <BarraDeNavegacion/>
-      <form onSubmit={manipuladorDeCreacion}>
-        <div>
+      <div className={style.contenedor}>
+      <form className={style.contenedorForm} onSubmit={manipuladorDeCreacion}>
+        <div className={style.form}>
           <label>
             NOMBRE:
             <input
@@ -205,9 +205,9 @@ const Formulario = () => {
               onChange={(e) => manipuladorInput(e)}
             />
           </label>
-          {validador.nombre ? <p>{validador.nombre}</p> : <p> </p>}
+          {validador.nombre ? <p className={style.validacion}>{validador.nombre}</p> : <p className={style.validacion}> </p>}
         </div>
-        <div>
+        <div className={style.form}>
           <label>
             RESUMEN DEL PLATO:
             <textarea
@@ -219,12 +219,12 @@ const Formulario = () => {
             />
           </label>
           {validador.resumenDelPlato ? (
-            <p>{validador.resumenDelPlato}</p>
+            <p className={style.validacion}>{validador.resumenDelPlato}</p>
           ) : (
-            <p> </p>
+            <p className={style.validacion}> </p>
           )}
         </div>
-        <div>
+        <div className={style.form}>
           <label>
             PASO A PASO:
             <textarea
@@ -235,9 +235,9 @@ const Formulario = () => {
               onChange={(e) => manipuladorInput(e)}
             />
           </label>
-          {validador.pasoApaso ? <p>{validador.pasoApaso}</p> : <p> </p>}
+          {validador.pasoApaso ? <p className={style.validacion}>{validador.pasoApaso}</p> : <p className={style.validacion}> </p>}
         </div>
-        <div>
+        <div className={style.form}>
           <label>
             PUNTAJE DE SALUD:
             <input
@@ -249,12 +249,12 @@ const Formulario = () => {
             />
           </label>
           {validador.puntajeDeSalud ? (
-            <p>{validador.puntajeDeSalud}</p>
+            <p className={style.validacion}>{validador.puntajeDeSalud}</p>
           ) : (
-            <p> </p>
+            <p className={style.validacion}> </p>
           )}
         </div>
-        <div>
+        <div className={style.form}>
           <label>
             IMAGEN:
             <input
@@ -265,22 +265,22 @@ const Formulario = () => {
               onChange={(e) => manipuladorInput(e)}
             />
           </label>
-          {validador.imagen ? <p>{validador.imagen}</p> : <p> </p>}
+          {validador.imagen ? <p className={style.validacion}>{validador.imagen}</p> : <p className={style.validacion}> </p>}
         </div>
-        <div>
+        <div className={style.form}>
         <label>
           SELECCIONA UNA DIETA:
           <select
             defaultValue={"default"}
             onChange={(e) => ManipuladorDietas(e)}
           >
-            <option value="default">ELEGIR DIETA/S</option>
-            {dieta &&
-              dieta.map((elemento) => {
+            <option value="default" disabled>ELEGIR DIETA/S</option>
+            {dietas &&
+              dietas.map((elemento, index) => {
                 return (
-                  <option key={elemento.nombre} value={elemento.nombre}>
+                    <option key={index} value={elemento.nombre}>
                     {elemento.nombre}
-                  </option>
+                  </option>  
                 )
               })}
           </select>
@@ -288,18 +288,18 @@ const Formulario = () => {
         </div>
         <div>
           <ul>
-            {nuevaReceta.dieta.length > 0 ? (
-              nuevaReceta.dieta.map((elemento) => (
+            {nuevaReceta.dietas.length > 0 ? (
+              nuevaReceta.dietas.map((elemento) => (
                 <li key={elemento} onClick={(e) => eliminarDieta(e)}>
                   {elemento}
                 </li>
               ))
             ) : (
-              <p>{validador.dieta}</p>
+              <p className={style.validacion}>{validador.dietas}</p>
             )}
           </ul>
         </div>
-        <button
+        <button className={style.boton}
           onClick={(e) => {
             manipuladorDeCreacion(e);
           }}
@@ -307,6 +307,7 @@ const Formulario = () => {
           CREAR RECETA
         </button>
       </form>
+    </div>
     </div>
   );
 };

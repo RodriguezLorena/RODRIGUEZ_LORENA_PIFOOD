@@ -11,8 +11,8 @@ const BarraDeNavegacion = () => {
     if(location.pathname === "/home"){
         return (
             <div className={style.contenedor}>
-                <Link to="/">
-|                   <img className={style.logo} src={logo} alt="logo"/>
+                <Link className={style.link} to="/">
+                    <img className={style.logo} src={logo} alt="logo"/>   
                 </Link>
                 <Link className={style.link} to="/formulario">
                     <img className={style.formulario} src={creacion} alt="icono de creacion"/>

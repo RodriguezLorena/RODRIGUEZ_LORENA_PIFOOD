@@ -3,6 +3,7 @@ const estadoInicial = {
   dietas: [],
   recetaModificable: [],
   unaReceta: {},
+  recetaCreada: "inicial"
 };
 
 function reducer(state = estadoInicial, { type, payload }) {
@@ -39,7 +40,7 @@ function reducer(state = estadoInicial, { type, payload }) {
       console.log("aca esta filtro dietas ")
       const listaRecetas = [...state.recetas];
       let listaDieta;
-
+      
       if (payload === "todas") {
         listaDieta = listaRecetas;
       } else {
@@ -53,7 +54,7 @@ function reducer(state = estadoInicial, { type, payload }) {
        listaDieta = listaDietax.length ? listaDietax : listaRecetas;
         
        if(!listaDietax.length){
-        alert("no existe dieta")
+        alert("NO EXISTE LA DIETA QUE BUSCA")
        }
        }
       
@@ -109,7 +110,7 @@ function reducer(state = estadoInicial, { type, payload }) {
       }
       return {
         ...state,
-        recetaModificable: ordenados,
+        recetaModificable: ordenados
       };
 
     case "ORDEN_PUNTAJE":
@@ -138,14 +139,29 @@ function reducer(state = estadoInicial, { type, payload }) {
       }
 
     case "BUSQUEDA_POR_NOMBRE":
-      if(!payload.data){
+      console.log("ACA ESTA PAYLOAD ", payload)
+      if(!payload){
         return alert("NO SE ENCUENTRA UNA RECETA CON ESE NOMBRE")
       }else{
+        console.log("ENCONTRE ALGO ", payload)
         return{
           ...state,
-          recetas: payload.data
+          recetaModificable: payload
         }
       }
+      
+    
+    case "RECETA_CREADA":
+      return{
+        ...state,
+        recetaCreada: payload
+      }
+    case "RECETA_NO_CREADA":
+      return{
+        ...state,
+        recetaCreada: payload
+      }
+
     default:
       return state;
   }

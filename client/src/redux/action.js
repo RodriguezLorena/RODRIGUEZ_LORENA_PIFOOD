@@ -75,21 +75,28 @@ export function accionOrdenPorPuntaje(payload){
   }
 }
 
-export const accionBusquedaPorNombre = (name)=>{
+export const accionBusquedaPorNombre = (nombre)=>{
   return async function(dispatch){
     try {
-      let nombre = await axios(`http://localhost:3001/foods?nombre=${name}`)
-      return dispatch({
-        type: "BUSQUEDA_POR_NOMBRE",
-        payload: nombre.data
-      })
+      if(nombre){
+        let respuesta = await axios(`http://localhost:3001/foods?nombre=${nombre}`)
+        return dispatch({
+          type: "BUSQUEDA_POR_NOMBRE",
+          payload: respuesta.data
+        })
+      }else{
+        alert("INGRESA UN NOMBRE DE RECETA")
+      }
+     
     } catch (error) {
       console.log("ERROR EN LA LLAMADA POR QUERY NOMBRE ", error)
+      alert("NO EXISTE LA RECETA QUE BUSCA")
     }
   }
 }
 export const formularioDeCreacion= async(payload)=>{
   try {
+    console.log("ACA ESTA PAYLOAD FORMULARIO ", JSON.stringify(payload))
     let crearReceta= await axios.post("http://localhost:3001/creacion", payload)
     return crearReceta
     
